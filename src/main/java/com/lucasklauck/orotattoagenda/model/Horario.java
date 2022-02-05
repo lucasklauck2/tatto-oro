@@ -1,4 +1,4 @@
-package com.lucasklauck.orotatto.model;
+package com.lucasklauck.orotattoagenda.model;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.lucasklauck.orotatto.controller;
+package com.lucasklauck.orotattoagenda.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lucasklauck.orotatto.model.Horario;
-import com.lucasklauck.orotatto.service.HorarioService;
+import com.lucasklauck.orotattoagenda.model.Horario;
+import com.lucasklauck.orotattoagenda.service.HorarioService;
 
 @CrossOrigin(origins = {"http://localhost:4200", "http://192.168.0.104:4200"})
 @RequestMapping("horario")

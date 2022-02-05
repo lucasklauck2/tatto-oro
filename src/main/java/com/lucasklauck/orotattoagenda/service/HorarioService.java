@@ -1,12 +1,12 @@
-package com.lucasklauck.orotatto.service;
+package com.lucasklauck.orotattoagenda.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lucasklauck.orotatto.model.Horario;
-import com.lucasklauck.orotatto.repository.HorarioRepository;
+import com.lucasklauck.orotattoagenda.model.Horario;
+import com.lucasklauck.orotattoagenda.repository.HorarioRepository;
 
 @Service
 public class HorarioService {
