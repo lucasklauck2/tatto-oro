@@ -30,8 +30,10 @@ public class UsuarioService {
 		}
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-		if (passwordEncoder.matches(alteracaoSenhaDTO.getSenhaAntiga(), usuario.getSenha())) {
+		
+		boolean senhaIgual = passwordEncoder.matches(alteracaoSenhaDTO.getSenhaAntiga(), usuario.getSenha());
+		
+		if (senhaIgual) {
 			
 			usuario.setSenha(passwordEncoder.encode(alteracaoSenhaDTO.getSenhaNova()));
 			
@@ -39,7 +41,7 @@ public class UsuarioService {
 		    
 		} else {
 			
-		    throw new BadCredentialsException("Senha incorreta!");
+		    throw new RuntimeException("Senha incorreta!");
 		}
 	}
 }

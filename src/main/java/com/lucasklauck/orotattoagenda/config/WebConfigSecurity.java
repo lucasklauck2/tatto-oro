@@ -5,14 +5,13 @@ import java.util.Arrays;
 import javax.servlet.http.HttpSessionListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -22,6 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.lucasklauck.orotattoagenda.security.AuthenticationFilter;
 import com.lucasklauck.orotattoagenda.security.LoginFilter;
+import com.lucasklauck.orotattoagenda.service.JWTTokenAutenticacaoService;
 
 @Configuration
 @EnableWebSecurity
@@ -39,24 +39,31 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter implements H
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
+		
+		http.cors().configurationSource(this.corsConfigurationSource()).and().csrf().disable();
 
-		http.csrf().disable().cors().and().authorizeRequests().antMatchers(HttpMethod.POST, "/login").permitAll()
-				.anyRequest().authenticated().and()
-				.addFilterBefore(new LoginFilter("/login", authenticationManager()),
-						UsernamePasswordAuthenticationFilter.class)
-				.addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.authorizeRequests().antMatchers("/login").permitAll();
+        http.authorizeRequests().antMatchers("/**").authenticated();
+        http.authorizeRequests().anyRequest().permitAll();
+        
+        http.addFilterBefore(new LoginFilter("/login", authenticationManager()),
+				UsernamePasswordAuthenticationFilter.class)
+		.addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
 	}
-
-	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
+	
+	private CorsConfigurationSource corsConfigurationSource() {
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowedOrigins(Arrays.asList("*"));
-		config.setAllowedHeaders(Arrays.asList("*"));
 		config.setAllowedMethods(Arrays.asList("*"));
-		config.setAllowCredentials(true);
+		config.addAllowedOrigin("*");
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
 		config.applyPermitDefaultValues();
 
 		source.registerCorsConfiguration("/**", config);

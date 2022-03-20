@@ -20,11 +20,11 @@ public class JWTTokenAutenticacaoService {
 
 	private static final Long EXPERATION_TOKEN = 86400L;
 
-	private static final String SECRET_KEY = "L$wdhw4541-wwfw2$%#ddd";
+	public static final String SECRET_KEY = "L$wdhw4541-wwfw2$%#ddd";
 
-	private static final String TOKEN_PREFIX = "Bearer";
+	public static final String TOKEN_PREFIX = "Bearer";
 
-	private static final String HEADER_STRING = "Authorization";
+	public static final String HEADER_STRING = "Authorization";
 
 	public static void addToken(HttpServletResponse response, String username) throws IOException {
 
