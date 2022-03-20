@@ -18,7 +18,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWTTokenAutenticacaoService {
 
-	private static final Long EXPERATION_TOKEN = 86400L;
+	private static final Long EXPERATION_TOKEN = 864000000L;
 
 	public static final String SECRET_KEY = "L$wdhw4541-wwfw2$%#ddd";
 
