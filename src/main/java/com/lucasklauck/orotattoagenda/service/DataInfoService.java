@@ -21,7 +21,7 @@ public class DataInfoService {
 			
 			Optional<DataInfo> optDataInfo = dataInfoRepository.findById(dataInfo.getId());
 
-			if (optDataInfo.isEmpty()) {
+			if (optDataInfo.isPresent()) {
 
 				DataInfo dataInfoExistente = optDataInfo.get();
 				dataInfoExistente.setCodigoCor(dataInfo.getCodigoCor());
